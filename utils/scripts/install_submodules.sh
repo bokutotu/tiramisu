@@ -84,7 +84,7 @@ if [ "${USE_LIBPNG}" = "0" ]; then
     CXXFLAGS_PNG="-DHALIDE_NO_PNG=1"
 fi
 echo_and_run_cmd "mkdir -p ${PROJECT_SRC_DIR}/3rdParty/Halide/install"
-echo_and_run_cmd "cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DLLVM_DIR=${PROJECT_SRC_DIR}/3rdParty/llvm/prefix/lib/cmake/llvm -DCMAKE_MAKE_PROGRAM='ninja' -DCMAKE_C_COMPILER='mpicc' -DCMAKE_CXX_COMPILER='g++' -DCMAKE_CXX_FLAGS='-std=c++17' -DCMAKE_INSTALL_PREFIX=${PROJECT_SRC_DIR}/3rdParty/Halide/install ${CXXFLAGS_JPEG} ${CXXFLAGS_PNG} -S . -B build"
+echo_and_run_cmd "cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DLLVM_DIR=${PROJECT_SRC_DIR}/3rdParty/llvm/prefix/lib/cmake/llvm -DCMAKE_MAKE_PROGRAM='ninja' -DCMAKE_C_COMPILER='gcc' -DCMAKE_CXX_COMPILER='g++' -DCMAKE_CXX_FLAGS='-std=c++17' -DCMAKE_INSTALL_PREFIX=${PROJECT_SRC_DIR}/3rdParty/Halide/install ${CXXFLAGS_JPEG} ${CXXFLAGS_PNG} -S . -B build"
 echo_and_run_cmd "cmake --build build -j ${CORES}"
 echo_and_run_cmd "cmake --install build"
 
