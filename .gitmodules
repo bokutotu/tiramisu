@@ -1,7 +1,7 @@
 [submodule "Halide"]
 	path = 3rdParty/Halide
 	url = https://github.com/halide/Halide.git
-	branch = master
+	branch = main
 	ignore = all
 [submodule "3rdParty/llvm"]
 	path = 3rdParty/llvm
