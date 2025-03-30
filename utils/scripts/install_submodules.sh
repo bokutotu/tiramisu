@@ -11,7 +11,7 @@ fi
 PROJECT_SRC_DIR=`realpath ${1}`
 CMAKE=cmake
 #CMAKE=/data/scratch/baghdadi/libs/cmake-3.22.1_prefix/bin/cmake
-CORES=8
+CORES=16
 
 # For Travis build we skip LLVM installation and use a custom binary.
 # Second argument specifies the custom path of the LLVM bin dir.

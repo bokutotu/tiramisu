@@ -1,0 +1,3 @@
+-Iinclude
+-I3rdParty/Halide
+-I3rdParty/isl
