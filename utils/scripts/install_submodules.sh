@@ -11,7 +11,7 @@ fi
 PROJECT_SRC_DIR=`realpath ${1}`
 CMAKE=cmake
 #CMAKE=/data/scratch/baghdadi/libs/cmake-3.22.1_prefix/bin/cmake
-CORES=4
+CORES=8
 
 # For Travis build we skip LLVM installation and use a custom binary.
 # Second argument specifies the custom path of the LLVM bin dir.
@@ -52,7 +52,7 @@ if [ "$2" = "" ]; then
         echo_and_run_cmd "mkdir prefix/"
     fi
     echo_and_run_cmd "cd build"
-    echo_and_run_cmd "$CMAKE -G Ninja -S ../llvm -DHAVE_LIBEDIT=0 -DLLVM_ENABLE_TERMINFO=OFF -DLLVM_ENABLE_PROJECTS='clang;lld;clang-tools-extra' -DLLVM_ENABLE_EH=ON -DLLVM_ENABLE_RTTI=ON -DLLVM_BUILD_32_BITS=OFF -DLLVM_TARGETS_TO_BUILD='X86;ARM;AArch64;Mips;NVPTX;PowerPC' -DLLVM_ENABLE_ASSERTIONS=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PWD/../prefix/ -DCMAKE_MAKE_PROGRAM='ninja' -DCMAKE_C_COMPILER='mpicc' -DCMAKE_CXX_COMPILER='mpicxx'"
+    echo_and_run_cmd "$CMAKE -G Ninja -S ../llvm -DHAVE_LIBEDIT=0 -DLLVM_ENABLE_TERMINFO=OFF -DLLVM_ENABLE_PROJECTS='clang;lld;clang-tools-extra' -DLLVM_ENABLE_EH=ON -DLLVM_ENABLE_RTTI=ON -DLLVM_BUILD_32_BITS=OFF -DLLVM_TARGETS_TO_BUILD='X86;ARM;AArch64;Mips;NVPTX;PowerPC' -DLLVM_ENABLE_ASSERTIONS=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PWD/../prefix/ -DCMAKE_MAKE_PROGRAM='ninja' -DCMAKE_C_COMPILER='gcc' -DCMAKE_CXX_COMPILER='g++'"
     echo_and_run_cmd "cmake --build . -j $CORES"
     echo_and_run_cmd "cmake --install ."
     echo "### Done Installing LLVM###"
@@ -84,7 +84,7 @@ if [ "${USE_LIBPNG}" = "0" ]; then
     CXXFLAGS_PNG="-DHALIDE_NO_PNG=1"
 fi
 echo_and_run_cmd "mkdir -p ${PROJECT_SRC_DIR}/3rdParty/Halide/install"
-echo_and_run_cmd "cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DLLVM_DIR=${PROJECT_SRC_DIR}/3rdParty/llvm/prefix/lib/cmake/llvm -DCMAKE_MAKE_PROGRAM='ninja' -DCMAKE_C_COMPILER='mpicc' -DCMAKE_CXX_COMPILER='mpicxx' -DCMAKE_CXX_FLAGS='-std=c++17' -DCMAKE_INSTALL_PREFIX=${PROJECT_SRC_DIR}/3rdParty/Halide/install ${CXXFLAGS_JPEG} ${CXXFLAGS_PNG} -S . -B build"
+echo_and_run_cmd "cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DLLVM_DIR=${PROJECT_SRC_DIR}/3rdParty/llvm/prefix/lib/cmake/llvm -DCMAKE_MAKE_PROGRAM='ninja' -DCMAKE_C_COMPILER='mpicc' -DCMAKE_CXX_COMPILER='g++' -DCMAKE_CXX_FLAGS='-std=c++17' -DCMAKE_INSTALL_PREFIX=${PROJECT_SRC_DIR}/3rdParty/Halide/install ${CXXFLAGS_JPEG} ${CXXFLAGS_PNG} -S . -B build"
 echo_and_run_cmd "cmake --build build -j ${CORES}"
 echo_and_run_cmd "cmake --install build"
 
