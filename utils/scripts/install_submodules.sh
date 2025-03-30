@@ -39,7 +39,7 @@ echo ${PROJECT_SRC_DIR}
 # echo "#### Cloning submodules ####"
 
 echo_and_run_cmd "cd ${PROJECT_SRC_DIR}"
-echo_and_run_cmd "git submodule update --init --remote --recursive"
+echo_and_run_cmd "git submodule update --init --recursive"
 
 # Get LLVM installed
 if [ "$2" = "" ]; then
