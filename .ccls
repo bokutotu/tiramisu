@@ -1,3 +1,6 @@
+clang
+%c -std=c99
+%cpp -std=23
 -Iinclude
 -I3rdParty/Halide
 -I3rdParty/isl
